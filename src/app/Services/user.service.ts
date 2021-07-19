@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {data} from 'src/app/data.js'
+import { data } from 'src/app/data.js'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
@@ -9,11 +9,11 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class UserService {
-  apiURL: string = 'http://openchefaws-env.eba-zxrnhky2.ap-south-1.elasticbeanstalk.com/chef/v1';
+  apiURL: string = 'http://localhost:4000/employee';
   //token = localStorage.getItem('token');
   // userId = localStorage.getItem('user_id');
 
-  prodData:any[]=[
+  prodData: any[] = [
     {
       "ProductURL": "navy-melange-ankle-socks-7002",
       "Collection": "USA Originals",
@@ -398,7 +398,7 @@ export class UserService {
       "IsTrending": false,
       "TagPriority": ""
     }
-,
+    ,
     {
       "ProductURL": "charcoal-melange-thermal-long-john-2420",
       "Collection": "Thermal",
@@ -783,7 +783,7 @@ export class UserService {
       "IsTrending": false,
       "TagPriority": "New"
     }
-,
+    ,
     {
       "ProductURL": "black-men-low-show-socks-7097",
       "Collection": "24X7 Men",
@@ -1169,25 +1169,46 @@ export class UserService {
       "TagPriority": ""
     }
   ];
-  
-  
+
+
   public tokenId: string = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOiJtYW5pa3lhbSIsIm1vYmlsZSI6bnVsbCwiZW1haWxJZCI6Im1hbmlreWFtZzEwLjJAZ21haWwuY29tIiwiaWQiOjl9LCJqdGkiOiI5IiwiaWF0IjoxNjE4MjAyNDE5fQ.G1mO2iKr_vb_zVrlokNmaGzy4rFMWOX6xJ0m0AmP8bhBb304bEGUPmU5TblrAlVuNDjlTrvtCAlD2JUZ3lYMDg";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'accessToken': this.tokenId
+      //'accessToken': this.tokenId
       // 'Authorization': `Bearer ${this.token}`
     })
   };
   constructor(private http: HttpClient) { }
 
 
+  getAllEmployees() {
+    return this.http.get<any>(this.apiURL + '/all', this.httpOptions);
+  }
 
-  getAllProducts(){
-    console.log("Product Data : Service",this.prodData)
+  postEmployee(data) {
+    return this.http.post<any>(this.apiURL + '/create', data, this.httpOptions);
+  }
+
+
+
+  getEmployeeDetails(id) {
+    return this.http.get<any>(this.apiURL + `/${id}`, this.httpOptions)
+  }
+
+  updateEmployee(id) {
+    return this.http.put<any>(this.apiURL + '/id', id, this.httpOptions)
+  }
+
+  deleteEmployee(id) {
+    return this.http.delete<any>(this.apiURL + `${id}`, this.httpOptions);
+  }
+
+  getAllProducts() {
+    console.log("Product Data : Service", this.prodData)
     return this.prodData;
   }
 
- 
+
 
 }

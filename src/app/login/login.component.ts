@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
     // }
     // ))
     console.log("Login Data : ", data);
-    this.router.navigate(['/revalsys/revalproducts']);
+    this.router.navigate(['/melon/employee']);
     
   }
 

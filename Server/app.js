@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 const mongoose = require('mongoose')
 
 //connect to mongodb using mongoose....
-mongoose.connect('mongodb+srv://manikyam_1:mani@1432@cluster0.xtdvu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://manikyam10:Mani1432@cluster0.xtdvu.mongodb.net/user', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
