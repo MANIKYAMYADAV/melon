@@ -71,7 +71,7 @@
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-primary btn-block" type="button"
+                                        <button class="btn btn-primary btn-block" type="button" [disabled]="employeeForm.invalid"
                                             (click)="employeeData(employeeForm.value)">
                                             <span class="text">Send</span>
                                         </button>
@@ -170,8 +170,8 @@
                                         <td>{{employee.employeeName}}</td>
                                         <td>
                                            <li class="form-inline">
-                                                <a (click)="getDataForEditForm(employee._id)" >
-                                                    <!-- " -->
+                                                <a routerLink="/melon/edit/{{employee._id}}"  >
+                                                    <!-- " (click)="editEmployee(employee._id)" -->
                                                     <i class="far fa-edit"></i>
                                                 </a> &nbsp;
                                           

@@ -8,6 +8,10 @@ import { RevalsysComponent } from './revalsys.component';
 const routes: Routes = [
   {path:'employee',component:EmployeesComponent},
   {
+    path:'edit/:id',component:EmployeesComponent
+
+  },
+  {
     path:'products',component:ProductsComponent
 
   },

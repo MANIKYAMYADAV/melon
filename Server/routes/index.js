@@ -29,40 +29,58 @@ router.get('/all',async(req,res)=>{
   res.send(data);
 })
 
-router.get('/id/:id',async(req,res)=>{
-  var id = req.params.id;
-  var data = await employee.findById(id);
+// router.delete('/:id',async(req,res)=>{
+//   let id = req.params.id;
+
+//   let data = await employee.find
+// })
+
+router.get('/:id',async(req,res)=>{
+  let id = req.params.id;
+  let data = await employee.findById(id,(err,success)=>{
+    if(err){
+      res.send(err);
+     }
+     else{
+       res.send(success);
+       
+     }
+  })
+
   res.send(data);
 })
 
 router.put('/:id',async(req,res)=>{
-  var id = req.params.id;
-var data = {
+  let id = req.params.id;
+let data = {
   employeeName:req.body.employeeName,
   employeeId:req.body.employeeId
 }
 
-await employee.findByIdAndUpdate(id,data,(err,success)=>{
+let updatedData = await employee.findByIdAndUpdate(id,data,(err,success)=>{
   if(err){
-   res.json("Error in Updation");
+   res.send("Error in Updation");
   }
   else{
-    res.json({'message':"Updated Successfully","data":success});
+    res.send({'message':"Updated Successfully","data":success});
   }
 })
+
+res.send(updatedData);
  
 
 })
 
 router.delete('/:id',async(req,res)=>{
   var id = req.params.id;
-  await employee.findByIdAndDelete(id, (err, success)=>{
+  let data = await employee.findByIdAndDelete(id, (err, success)=>{
     if(err){
     res.send(err);
     }else{
       res.send(success);
     }
   })
+  res.send(data);
 })
 
 module.exports = router;

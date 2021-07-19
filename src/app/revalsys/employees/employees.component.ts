@@ -20,6 +20,7 @@ export class EmployeesComponent implements OnInit {
   searchTerm: any;
   employees: any[] = [];
   formId: any;
+  empData:any;
 
 
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;
@@ -47,9 +48,30 @@ export class EmployeesComponent implements OnInit {
 
     this.activeRoute.queryParams.subscribe(params => {
       this.formId = params.id;
-      // this.getDataForEditForm( this.formId)
+      this.getDataForEditForm( this.formId)
+      
+      if (this.formId) { this.getEmpDetails() }
+
     });
 
+  }
+
+  getEmpDetails() {
+    this.userService.getEmployeeDetails(this.formId).subscribe(res => {
+      this.empData = '';
+      if (res && res.data && res.data.length > 0) {
+        let resdata = res.data.filter((x: any) => x._id == this.formId);
+        if (resdata && resdata.length > 0) {
+          this.empData = resdata[0];
+    
+          let data = {
+            employeeName: this.empData ? this.empData.employeeName : '',
+            employeeId: this.empData ? this.empData.employeeId : '',   
+          }
+          this.employeeForm.patchValue(data);
+        }
+      }
+    });
   }
 
   pageChanged(event) {
@@ -83,20 +105,26 @@ export class EmployeesComponent implements OnInit {
 
   employeeData(data) {
     console.log(data);
-  
-      this.userService.postEmployee(data).subscribe((response) => {
-        console.log("Created Employee Data :", response);
-        this.employeeForm.reset();
-        this.getAllEmployees();
-      })
-    
     if(this.formId){
       this.userService.updateEmployee(this.formId).subscribe((response) => {
         console.log("Updated Employee Data :", response);
         this.employeeForm.reset();
       })
     }
+    else
+    {
+      this.userService.postEmployee(data).subscribe((response) => {
+        console.log("Created Employee Data :", response);
+        this.employeeForm.reset();
+        this.getAllEmployees();
+      })
+    }
 
+  }
+
+
+  editEmployee(employee) {
+    this.router.navigate(['/melon/edit'], { queryParams: { 'id': employee._id } });
   }
 
 
@@ -105,11 +133,13 @@ export class EmployeesComponent implements OnInit {
     this.userService.getEmployeeDetails(this.formId).subscribe(Response => {
       if (Response == 'success') { }
       let data = {
-        "employeeId": Response.data.employeeId,
-        "employeeName": Response.data.name,
+        "employeeId": Response.employeeId,
+        "employeeName": Response.employeeName,
       }
       this.employeeForm.patchValue(data);
     })
+
+
   }
 
 }
