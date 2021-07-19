@@ -24,7 +24,7 @@
                                         <!-- <span class="logo-lg-text-light m-1">Open-Chef</span> -->
 
 
-                                        <h6 class="m-0 font-weight-bold text-primary">{{formId ? 'Edit Form' : 'Create Form'}}</h6>
+                                        <!-- <h6 class="m-0 font-weight-bold text-primary">{{formId ? 'Edit Form' : 'Create Form'}}</h6> -->
 
                                         <h1 class="text-center"><strong> Melon:Employee-Add/Edit Form</strong>
                                         </h1>
@@ -73,7 +73,7 @@
                                     <div class="form-group mb-0 text-center">
                                         <button class="btn btn-primary btn-block" type="button"
                                             (click)="employeeData(employeeForm.value)">
-                                            <span class="text">{{ formId ? 'Save Changes': 'Create Form'}}</span>
+                                            <span class="text">Send</span>
                                         </button>
                                     </div>
 
@@ -169,21 +169,21 @@
                                         <td>{{employee.employeeId}}</td>
                                         <td>{{employee.employeeName}}</td>
                                         <td>
-                                            <button>
-                                                <a >
-                                                    <!-- (click)="editForm(formData.formid)" -->
-                                                    <i class="far fa-edit">Edit</i>
-                                                </a>
-                                            </button>
-                                            <button>
-                                                <a href="#deleteModal" data-toggle="modal" class="dropdown-item"
+                                           <li class="form-inline">
+                                                <a (click)="getDataForEditForm(employee._id)" >
+                                                    <!-- " -->
+                                                    <i class="far fa-edit"></i>
+                                                </a> &nbsp;
+                                          
+                                            
+                                                <a (click)="getFormId(employee._id)" href="#deleteModal" data-toggle="modal" class="dropdown-item"
                                                 >
-                                                <!-- (click)="getFormId(formData.formid)" -->
-                                                <i
-                                                    class="far fa-trash-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                Delete
+                                                <!--  -->
+                                                <i class="far fa-trash-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            
                                             </a>
-                                            </button>
+                                        </li>
+                                           
                                         </td>
                                         
                                     </tr>

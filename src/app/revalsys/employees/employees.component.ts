@@ -83,13 +83,14 @@ export class EmployeesComponent implements OnInit {
 
   employeeData(data) {
     console.log(data);
-    if (this.formId == '') {
+  
       this.userService.postEmployee(data).subscribe((response) => {
         console.log("Created Employee Data :", response);
         this.employeeForm.reset();
+        this.getAllEmployees();
       })
-    }
-    else {
+    
+    if(this.formId){
       this.userService.updateEmployee(this.formId).subscribe((response) => {
         console.log("Updated Employee Data :", response);
         this.employeeForm.reset();
@@ -98,8 +99,10 @@ export class EmployeesComponent implements OnInit {
 
   }
 
+
   getDataForEditForm(id) {
-    this.userService.getEmployeeDetails(id).subscribe(Response => {
+    this.formId=id
+    this.userService.getEmployeeDetails(this.formId).subscribe(Response => {
       if (Response == 'success') { }
       let data = {
         "employeeId": Response.data.employeeId,

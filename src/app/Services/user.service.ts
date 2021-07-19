@@ -1201,7 +1201,7 @@ export class UserService {
   }
 
   deleteEmployee(id) {
-    return this.http.delete<any>(this.apiURL + `${id}`, this.httpOptions);
+    return this.http.delete<any>(this.apiURL + `/${id}`, this.httpOptions);
   }
 
   getAllProducts() {
