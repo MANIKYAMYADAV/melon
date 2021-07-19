@@ -73,6 +73,8 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
+  formReset(){
+    this.employeeForm.reset();  }
 
   pageChanged(event) {
     this.config.currentPage = event;

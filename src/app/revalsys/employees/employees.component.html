@@ -71,7 +71,8 @@
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-primary btn-block" type="button" [disabled]="employeeForm.invalid"
+                                        <button class="btn btn-secondary" type="button" (click)="formReset()">  <span class="text">Cancel</span></button> &nbsp;
+                                        <button class="btn btn-primary" type="button" [disabled]="employeeForm.invalid"
                                             (click)="employeeData(employeeForm.value)">
                                             <span class="text">Send</span>
                                         </button>
