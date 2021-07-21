@@ -86,10 +86,10 @@ res.send(updatedData);
 router.delete('/:id',async(req,res)=>{
   var id = req.params.id;
   let data = await employee.findByIdAndDelete(id, (err, success)=>{
-    if(!err){
-    res.send(success);
+    if(err){
+    res.send(err);
     }else{
-      res.send(err);
+      res.send({'message':"Deleted Successfully",data:success});
     }
   })
   res.send(data);

@@ -122,6 +122,7 @@ export class EmployeesComponent implements OnInit {
       this.userService.updateEmployee(this.formId,data).subscribe((response) => {
         console.log("Updated Employee Data :", response);
         this.employeeForm.reset();
+        this.getAllEmployees();
       })
     }
     else
