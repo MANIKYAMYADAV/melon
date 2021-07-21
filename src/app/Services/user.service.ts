@@ -1193,11 +1193,11 @@ export class UserService {
 
 
   getEmployeeDetails(id) {
-    return this.http.get<any>(this.apiURL + `/${id}`, this.httpOptions)
+    return this.http.get<any>(this.apiURL + `/searchById?id=${id}`, this.httpOptions)
   }
 
-  updateEmployee(id) {
-    return this.http.put<any>(this.apiURL + '/id', id, this.httpOptions)
+  updateEmployee(id,data) {
+    return this.http.put<any>(this.apiURL + `/${id}`, data, this.httpOptions)
   }
 
   deleteEmployee(id) {

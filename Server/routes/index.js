@@ -35,19 +35,31 @@ router.get('/all',async(req,res)=>{
 //   let data = await employee.find
 // })
 
-router.get('/:id',async(req,res)=>{
-  let id = req.params.id;
-  let data = await employee.findById(id,(err,success)=>{
+router.get('/searchById',(req,res)=>{
+  let id = req.query.id;
+   employee.findById(id,(err,success)=>{
     if(err){
       res.send(err);
      }
      else{
-       res.send(success);
-       
+      res.send({status:200,'message':"Fechted Employee Successfully",data:success});
+    }
+    
+  })
+})
+
+
+router.get('/searchBy',(req,res)=>{
+  let name = req.query.employeeName;
+   employee.findOneAndDelete({employeeName:name},(err,success)=>{
+    if(err){
+      res.send(err);
+     }
+     else{
+       res.send({status:200,data:success});
      }
   })
 
-  res.send(data);
 })
 
 router.put('/:id',async(req,res)=>{
@@ -62,7 +74,7 @@ let updatedData = await employee.findByIdAndUpdate(id,data,(err,success)=>{
    res.send("Error in Updation");
   }
   else{
-    res.send({'message':"Updated Successfully","data":success});
+    res.send({'message':"Updated Successfully",data:success});
   }
 })
 
@@ -74,10 +86,10 @@ res.send(updatedData);
 router.delete('/:id',async(req,res)=>{
   var id = req.params.id;
   let data = await employee.findByIdAndDelete(id, (err, success)=>{
-    if(err){
-    res.send(err);
+    if(!err){
+    res.send(success);
     }else{
-      res.send(success);
+      res.send(err);
     }
   })
   res.send(data);

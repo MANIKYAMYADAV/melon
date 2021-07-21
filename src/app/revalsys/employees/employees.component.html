@@ -170,20 +170,21 @@
                                         <td>{{employee.employeeId}}</td>
                                         <td>{{employee.employeeName}}</td>
                                         <td>
+                                            <ul class="form-group">
                                            <li class="form-inline">
-                                                <a routerLink="/melon/edit/{{employee._id}}"  >
-                                                    <!-- " (click)="editEmployee(employee._id)" -->
+                                                <a  (click)="editEmployee(employee._id)">
+                                                    <!--routerLink="/melon/employee/edit/{{employee._id}}"  -->
                                                     <i class="far fa-edit"></i>
-                                                </a> &nbsp;
+                                                </a> </li>&nbsp;
                                           
-                                            
+                                            <li class="form-inline">
                                                 <a (click)="getFormId(employee._id)" href="#deleteModal" data-toggle="modal" class="dropdown-item"
                                                 >
                                                 <!--  -->
                                                 <i class="far fa-trash-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             
                                             </a>
-                                        </li>
+                                        </li></ul>
                                            
                                         </td>
                                         

@@ -45,15 +45,6 @@ export class EmployeesComponent implements OnInit {
       currentPage: 1,
       totalItems: this.employees.length
     };
-
-    this.activeRoute.queryParams.subscribe(params => {
-      this.formId = params.id;
-      this.getDataForEditForm( this.formId)
-      
-      if (this.formId) { this.getEmpDetails() }
-
-    });
-
   }
 
   getEmpDetails() {
@@ -82,6 +73,26 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllEmployees();
+    this.activeRoute.queryParams.subscribe(params => {
+      this.formId = params.id;
+      console.log("ID :",this.formId);
+
+      this.userService.getEmployeeDetails(this.formId).subscribe(Response => {
+        this.empData = '';
+        if (Response && Response.data) {
+          this.empData = Response.data;
+          console.log("Employee Details :",this.empData);
+          let data = {
+            employeeName: this.empData.employeeName ? this.empData.employeeName : '',
+            employeeId: this.empData.employeeId ? this.empData.employeeId : '',
+          }
+          this.employeeForm.patchValue(data);
+  
+        }
+           
+      })
+  
+    });
 
   }
 
@@ -108,7 +119,7 @@ export class EmployeesComponent implements OnInit {
   employeeData(data) {
     console.log(data);
     if(this.formId){
-      this.userService.updateEmployee(this.formId).subscribe((response) => {
+      this.userService.updateEmployee(this.formId,data).subscribe((response) => {
         console.log("Updated Employee Data :", response);
         this.employeeForm.reset();
       })
@@ -125,18 +136,33 @@ export class EmployeesComponent implements OnInit {
   }
 
 
-  editEmployee(employee) {
-    this.router.navigate(['/melon/edit'], { queryParams: { 'id': employee._id } });
+  editEmployee(id: any) {
+    this.router.navigate(['employee'], { queryParams: { 'id': id } });
   }
-
+  // this.userService.getEmployeeDetails(this.formId).subscribe((res)=>{
+  //   this.empData = '';
+  //   if (res && res.data && res.data.length > 0) {
+  //     let resdata = res.data.filter((x: any) => x._id == this.formId);
+  //     if (resdata && resdata.length > 0) {
+  //       this.empData = resdata[0];
+  
+  //       let data = {
+  //         employeeName: this.empData ? this.empData.employeeName : '',
+  //         employeeId: this.empData ? this.empData.employeeId : '',   
+  //       }
+  //       this.employeeForm.patchValue(data);
+  //     }
+  //   }
+  
+  // })
 
   getDataForEditForm(id) {
     this.formId=id
     this.userService.getEmployeeDetails(this.formId).subscribe(Response => {
       if (Response == 'success') { }
       let data = {
-        "employeeId": Response.employeeId,
-        "employeeName": Response.employeeName,
+        "employeeId": Response.data.employeeId,
+        "employeeName": Response.data.employeeName,
       }
       this.employeeForm.patchValue(data);
     })
