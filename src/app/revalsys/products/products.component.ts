@@ -63,11 +63,11 @@ export class ProductsComponent implements OnInit {
       isDeletable: ['']
 
     })
-    this.config = {
-      itemsPerPage: 12,
-      currentPage: 1,
-      totalItems: this.products.length
-    };
+    // this.config = {
+    //   itemsPerPage: 12,
+    //   currentPage: 1,
+    //   totalItems: this.products.length
+    // };
   }
 
   pageChanged(event) {

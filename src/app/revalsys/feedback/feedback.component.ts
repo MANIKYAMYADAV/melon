@@ -16,14 +16,15 @@ export class FeedbackComponent implements OnInit {
 
   feedbackForm: FormGroup;
   user: SocialUser;
+  feedbackData:any ={};
 
   constructor(
     private fb: FormBuilder, private router: Router, private authService: SocialAuthService, private toastr: ToastrService, private userService: UserService) {
     this.feedbackForm = this.fb.group({
-      name:['',Validators.required],
-      mobile:['',Validators.required],
-      emailId: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      password: ['', Validators.required],
+      name:['',[Validators.required,Validators.minLength(5)]],
+      mobile:['',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+      emailId: ['', [Validators.required,Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      password: ['', [Validators.required]],
     })
   }
 
@@ -33,6 +34,10 @@ export class FeedbackComponent implements OnInit {
   
   feedBack(data){
     console.log(data);
+    this.feedbackData = Object.assign(this.feedbackData,data);
+    localStorage.setItem('FeebBack' ,JSON.stringify(this.feedbackData));
+    
+
   }
 
 }

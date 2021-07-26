@@ -42,7 +42,7 @@
                 <div class="col-12">
                     <div class="card">
 
-                        <div class="card-body">
+                        <div class="card-body scrollTable">
 
                             <h4 class="header-title">Product-List</h4>
                             <div class="form-inline">
@@ -50,6 +50,14 @@
                                     <label for="fullname">Search</label>&nbsp;
                                     <input class="form-control" type="search" placeholder="Search.." [(ngModel)]="searchTerm" >
                                     <!-- <span><i class="fa fa-search"></i></span> -->
+
+                                </div>
+                                <div class="form-group d-block ml-auto">
+                                    <button class="btn btn-primary" routerLink="/melon/feedback">
+                                       
+                                             Feedback 
+                                       
+                                    </button>
 
                                 </div>
                                 <div class="form-group d-block ml-auto">
@@ -84,7 +92,7 @@
                                 <!--  " -->
 
                                 <tbody>
-                                    <tr *ngFor="let product of products | paginate: config | filter:searchTerm; let i=index">
+                                    <tr *ngFor="let product of products | filter:searchTerm; let i=index">
 
                                          <!-- <td><img  src= ${product.Images} style height="30" width="30" onerror="this.onerror=null;this.src='${product.Images}'"> ` : ''</td> -->
                                         <td><img src="{{product.Images}}" style="height: 30; width: 30;" alt="" srcset=""></td>
@@ -113,9 +121,9 @@
                                    
                                 </tfoot>
                             </table>
-                            <div class="d-flex ml-auto">
+                            <!-- <div class="d-flex ml-auto">
                             <pagination-controls  (pageChange)="pageChanged($event)"></pagination-controls>
-                           </div>
+                           </div> -->
 
 
                         </div> <!-- end card body-->
